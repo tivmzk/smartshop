@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -7,14 +6,20 @@
 <meta charset="UTF-8">
 <jsp:include page="../inc/header.jsp" flush="false"/>
 <script type="text/javascript" defer>
-	function setMaxAmount(amount){
-		const amount = document.querySelector(`input[name="amount"]`);
-		amount.setAttribute('max', amount);
+	function checkStock(){
+		const select = $('select[name="product"]');
+		const max = select.find('option[value="' + select.val() + '"]').data('amount');
+		$('#msg').text(" (재고량:" + max + ")");
+		$('input[name="amount"]').attr('max', max);
 	}
-
-	window.onload = () => {
+	
+	$(function(){
+		$('select[name="product"]').on("change", function(){
+			checkStock();
+		});
 		
-	};
+		checkStock();
+	});
 </script>
 </head>
 <body>
@@ -41,7 +46,7 @@
 			</div>
 			<div class="form-floating my-5">
 				<input class="form-control" id="amount" type="number" name="amount" required="required" placeholder="amount" min="1" value="1">
-				<label for="amount">수량</label>
+				<label for="amount">수량<span id="msg"></span></label>
 			</div>
 			<div class="row">
 				<div class="col-6">
