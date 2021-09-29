@@ -8,6 +8,7 @@ public class Purchase {
 	private int partner;
 	private int amount;
 	private Date regDate;
+	private String id;
 	
 	private String productName;
 	private String partnerName;
@@ -53,5 +54,11 @@ public class Purchase {
 	}
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
-	}	
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 }
