@@ -48,4 +48,9 @@
 		FROM member
 		<include refid="search"/>
 	</select>
+	<select id="check_id" resultType="Integer">
+		SELECT COUNT(*)
+		FROM member
+		WHERE id=#{id}
+	</select>
 </mapper>

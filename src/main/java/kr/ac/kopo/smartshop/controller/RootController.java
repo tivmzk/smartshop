@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.ac.kopo.smartshop.model.Member;
 import kr.ac.kopo.smartshop.service.MemberService;
@@ -39,5 +40,33 @@ public class RootController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:.";
+	}
+	
+	@GetMapping("/signup")
+	public String signup() {
+		return "signup";
+	}
+	
+	@PostMapping("/signup")
+	public String signup(Member member) {
+		memberService.add(member);
+		return "redirect:.";
+	}
+	
+	@ResponseBody
+	@GetMapping("/checkId")
+	public String checkId(String id) {
+		
+		try {
+			Thread.sleep(30*1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(memberService.checkId(id)) {
+			return "OK";
+		}
+		return "FAIL";
 	}
 }

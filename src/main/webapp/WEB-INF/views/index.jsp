@@ -29,8 +29,11 @@
 						</div>
 					</c:if>
 					<c:if test="${sessionScope.member == null}">
-						<div class="text-end">
+						<div class="text-end me-3">
 							<a class="btn btn-primary" href="login">로그인</a>
+						</div>
+						<div class="text-end">
+							<a class="btn btn-primary" href="signup">회원가입</a>
 						</div>
 					</c:if>
 				</div>

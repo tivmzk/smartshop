@@ -3,8 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>로그인</title>
+<jsp:include page="inc/header.jsp"></jsp:include>
 </head>
 <body>
 	<div>

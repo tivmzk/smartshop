@@ -6,4 +6,8 @@ public interface MemberService {
 
 	boolean login(Member member);
 
+	void add(Member member);
+
+	boolean checkId(String id);
+
 }

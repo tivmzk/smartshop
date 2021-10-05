@@ -6,4 +6,8 @@ public interface MemberDao {
 
 	Member item(Member member);
 
+	void add(Member member);
+
+	int checkId(String id);
+
 }

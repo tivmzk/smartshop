@@ -25,4 +25,17 @@ public class MemberServiceImpl implements MemberService {
 		return false;
 	}
 
+	@Override
+	public void add(Member member) {
+		dao.add(member);
+	}
+
+	@Override
+	public boolean checkId(String id) {
+		if(dao.checkId(id) == 0) {
+			return true;
+		}
+		return false;
+	}
+
 }

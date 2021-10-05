@@ -16,4 +16,13 @@ public class MemberDaoImpl implements MemberDao {
 		return sql.selectOne("member.item", member);
 	}
 
+	@Override
+	public void add(Member member) {
+		sql.insert("member.add", member);
+	}
+
+	@Override
+	public int checkId(String id) {
+		return sql.selectOne("member.check_id", id);
+	}
 }
