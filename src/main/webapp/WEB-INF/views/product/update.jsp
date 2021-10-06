@@ -3,8 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <jsp:include page="../inc/header.jsp" />
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#info').summernote();
+	});
+</script>
 </head>
 <body>
 	<div class="container vh-100 d-flex align-items-center justify-content-center">
@@ -31,6 +37,10 @@
 			<div class="my-5">
 				<label class="form-label">가격</label>
 				<input class="form-control" id="price" type="number" name="price" required="required" value="${item.price}">
+			</div>
+			<div class="my-5">
+				<label class="form-label">제품설명</label>
+				<textarea class="form-control" id="info" name="info" rows="20" cols="80">${item.info}</textarea>
 			</div>
 			<div class="row">
 				<div class="col-6">

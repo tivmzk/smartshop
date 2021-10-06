@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <jsp:include page="../inc/header.jsp" />
 </head>
 <body>

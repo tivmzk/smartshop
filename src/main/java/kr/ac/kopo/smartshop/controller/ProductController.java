@@ -76,4 +76,11 @@ public class ProductController {
 		service.init();
 		return "redirect:list";
 	}
+	
+	@GetMapping("/view/{code}")
+	public String view(@PathVariable int code, Model model) {
+		Product item = service.item(code);
+		model.addAttribute("item", item);
+		return PATH + "view";
+	}
 }

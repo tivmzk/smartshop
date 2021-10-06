@@ -5,8 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <jsp:include page="../inc/header.jsp" flush="false"/>
 </head>
 <body>
@@ -53,7 +51,7 @@
 					<c:forEach items="${list}" var="item">
 						<tr class="text-center lh-lg my-0">
 							<td>${item.code}</td>
-							<td>${item.name}</td>
+							<td><a href="view/${item.code}">${item.name}</a></td>
 							<td>${item.spec}</td>
 							<td>${item.category}</td>
 							<td>${item.manufacture}</td>

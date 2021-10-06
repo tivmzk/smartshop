@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <jsp:include page="../inc/header.jsp" flush="false"/>
 <script type="text/javascript" defer>
 	function checkStock(){

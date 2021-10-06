@@ -5,8 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <jsp:include page="../inc/header.jsp" flush="false"/>
 </head>
 <body>
