@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <title>스마트 SHOP</title>
 <jsp:include page="inc/header.jsp"></jsp:include>
+<script type="text/javascript">
+	$(function(){
+		let msg = `${msg}`;
+		if(msg){
+			alert(msg);
+		}
+	});
+</script>
 </head>
 <body>
 	<div class="container-fluid">
