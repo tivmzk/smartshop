@@ -162,7 +162,13 @@
 		    <artifactId>mariadb-java-client</artifactId>
 		    <version>2.7.4</version>
 		</dependency>
-				
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<!-- 파일 업로드 라이브러리 -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.4</version>
+		</dependency>
 	</dependencies>
     <build>
         <plugins>

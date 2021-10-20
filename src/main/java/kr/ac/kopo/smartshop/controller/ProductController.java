@@ -1,6 +1,10 @@
 package kr.ac.kopo.smartshop.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.ac.kopo.smartshop.model.Product;
+import kr.ac.kopo.smartshop.model.ProductImage;
 import kr.ac.kopo.smartshop.service.ProductService;
 import kr.ac.kopo.smartshop.util.Pager;
 
@@ -21,6 +28,7 @@ public class ProductController {
 	ProductService service;
 	
 	private final String PATH = "product/";
+	private final String UPLOAD_PATH = "D:/upload/";
 	
 	@RequestMapping({"/", "/list"})
 	public String list(Model model, Pager pager) {
@@ -37,7 +45,34 @@ public class ProductController {
 	}
 	
 	@PostMapping("/add")
-	public String add(Product item) {
+	public String add(Product item, @RequestParam("productImage") List<MultipartFile> productImage) {
+		List<ProductImage> list = new ArrayList<ProductImage>();
+		try {
+			for (MultipartFile file : productImage) {
+				if (file.isEmpty() || file == null)
+					continue;
+
+				String filename = file.getOriginalFilename();
+				String uuid = UUID.randomUUID().toString();
+
+				file.transferTo(new File(String.format("%s%s_%s", UPLOAD_PATH, uuid, filename)));
+				
+				ProductImage image = new ProductImage();
+				image.setFilename(filename);
+				image.setUuid(uuid);
+				
+				list.add(image);
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		item.setImeges(list);
+		
 		service.add(item);
 		
 		return "redirect:list";

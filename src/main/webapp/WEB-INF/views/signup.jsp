@@ -101,33 +101,45 @@
 </script>
 </head>
 <body>
-	<div class="container">
-		<form id="signup_form" method="post">
+	<div class="container vh-100 d-flex align-items-center justify-content-center">
+		<form id="signup_form" method="post" class="w-50 border p-4 rounded">
 			<input type="hidden" name="checkId">
-			<div>
-				<label for="id">아이디:</label>
-				<input type="text" id="id" name="id" required="required" autofocus="autofocus"/>
-				<button type="button" onclick="check_id_async()">중복확인</button>
+			<div class="mb-3">
+				<label for="id">아이디</label>
+				<div class="row">
+					<div class="col-9">
+						<input type="text" id="id" name="id" required="required" autofocus="autofocus" class="form-control"/>
+					</div>
+					<div class="col-3">
+						<button type="button" onclick="check_id_async()" class="btn btn-dark form-control">중복확인</button>
+					</div>
+				</div>
 			</div>
-			<div>
-				<label for="password">비밀번호:</label>
-				<input type="password" id="password" name="password" required="required" placeholder="특수문자 / 문자 / 숫자 포함 형태의 8 ~ 15자리"/>
+			<div class="mb-3">
+				<label for="password">비밀번호</label>
+				<input type="password" id="password" name="password" required="required" placeholder="특수문자 / 문자 / 숫자 포함 형태의 8 ~ 15자리" class="form-control"/>
 			</div>
-			<div>
-				<label for="password_confirm">비밀번호 확인:</label>
-				<input type="password" id="password_confirm" name="password_confirm" required="required"/>
+			<div class="mb-3">
+				<label for="password_confirm">비밀번호 확인</label>
+				<input type="password" id="password_confirm" name="password_confirm" required="required" class="form-control"/>
 			</div>
-			<div>
-				<label for="address">주소:</label>
-				<input type="text" id="address" name="address" required="required"/>
+			<div class="mb-3">
+				<label for="address">주소</label>
+				<input type="text" id="address" name="address" required="required" class="form-control"/>
 			</div>
-			<div>
-				<label for="tel">전화번호:</label>
-				<input type="tel" id="tel" name="tel" required="required" placeholder="-포함"/>
+			<div class="mb-5">
+				<label for="tel">전화번호</label>
+				<input type="tel" id="tel" name="tel" required="required" placeholder="-포함" class="form-control"/>
 			</div>
-			<div>
-				<button type="button" onclick="signup()">회원가입</button>
+			<div class="row">
+				<div class="col-6">
+					<button type="button" onclick="signup()" class="btn btn-primary form-control">회원가입</button>
+				</div>
+				<div class="col-6">
+					<a href="." class="btn btn-secondary form-control">돌아가기</a>
+				</div>
 			</div>
+
 		</form>
 	</div>
 </body>

@@ -1,5 +1,7 @@
 package kr.ac.kopo.smartshop.model;
 
+import java.util.List;
+
 public class Product {
 	private int code;
 	private String name;
@@ -8,6 +10,26 @@ public class Product {
 	private String manufacture;
 	private int price;
 	private String info;
+	private String barcode;
+	private List<ProductImage> imeges;
+	
+	
+	
+	public String getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
+
+	public List<ProductImage> getImeges() {
+		return imeges;
+	}
+
+	public void setImeges(List<ProductImage> imeges) {
+		this.imeges = imeges;
+	}
 
 	public String getInfo() {
 		return info;

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import kr.ac.kopo.smartshop.model.Member;
 import kr.ac.kopo.smartshop.model.Partner;
 import kr.ac.kopo.smartshop.model.Product;
 import kr.ac.kopo.smartshop.model.Purchase;
@@ -39,18 +41,20 @@ public class PurchaseController {
 	}
 	
 	@GetMapping("/add")
-	public String add(Model model) {
+	public String add(Model model, @SessionAttribute Member member) {
 		List<Product> productList = productService.list();
 		List<Partner> partnerList = partnerService.list();
 		
 		model.addAttribute("productList", productList);
 		model.addAttribute("partnerList", partnerList);
+		model.addAttribute("user", member.getId());
 		
 		return PATH + "add";
 	}
 	
 	@PostMapping("/add")
-	public String add(Purchase item) {
+	public String add(Purchase item, @SessionAttribute Member member) {
+		item.setId(member.getId());
 		service.add(item);
 		return "redirect:list";
 	}

@@ -10,7 +10,7 @@
 	<div class="container vh-100 d-flex align-items-center justify-content-center">
 		<form method="post" class="w-50 border p-4 rounded">
 			<div class="mb-3">
-				<h2>입고 등록</h2>
+				<h2>입고 등록 (${user})</h2>
 			</div>
 			<div class="mb-5">
 				<label for="product">제품명</label>

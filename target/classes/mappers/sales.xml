@@ -27,7 +27,7 @@
 	</select>
 	<insert id="add">
 		INSERT INTO sales 
-		VALUES (NULL, #{product}, #{partner}, #{amount}, NOW())
+		VALUES (NULL, #{product}, #{partner}, #{amount}, NOW(), #{id})
 	</insert>
 	<select id="item" resultType="Sales">
 		SELECT sales.*, product.name AS product_name, partner.name AS partner_name

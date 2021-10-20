@@ -20,6 +20,7 @@
 								<option value="1" ${pager.search == 1 ? 'selected' : ''}>출고번호</option>
 								<option value="2" ${pager.search == 2 ? 'selected' : ''}>제품명</option>
 								<option value="3" ${pager.search == 3 ? 'selected' : ''}>거래처명</option>
+								<option value="4" ${pager.search == 4 ? 'selected' : ''}>담당자</option>
 							</select>
 						</div>
 						<div class="col-auto">
@@ -39,6 +40,7 @@
 						<td>출고번호</td>
 						<td>제품명</td>
 						<td>거래처명</td>
+						<td>담당자</td>
 						<td>수량</td>
 						<td>등록일자</td>
 						<td>관리</td>
@@ -50,6 +52,7 @@
 							<td>${item.code}</td>
 							<td>${item.productName}</td>
 							<td>${item.partnerName}</td>
+							<td>${item.id}</td>
 							<td>${item.amount}</td>
 							<td><fmt:formatDate value="${item.regDate}" pattern="yyyy년 MM월 dd일 hh:mm:ss"/></td>
 							<td><a href="delete/${item.code}" class="btn btn-danger">삭제</a> <a href="update/${item.code}" class="btn btn-info">수정</a></td>
