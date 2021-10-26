@@ -87,7 +87,33 @@ public class ProductController {
 	}
 	
 	@PostMapping("/update/{code}")
-	public String update(@PathVariable int code, Product item) {
+	public String update(@PathVariable int code, Product item, @RequestParam("productImage") List<MultipartFile> productImage) {
+		List<ProductImage> list = new ArrayList<ProductImage>();
+		try {
+			for (MultipartFile file : productImage) {
+				if (file.isEmpty() || file == null)
+					continue;
+
+				String filename = file.getOriginalFilename();
+				String uuid = UUID.randomUUID().toString();
+
+				file.transferTo(new File(String.format("%s%s_%s", UPLOAD_PATH, uuid, filename)));
+				
+				ProductImage image = new ProductImage();
+				image.setFilename(filename);
+				image.setUuid(uuid);
+				
+				list.add(image);
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		item.setImages(list);
 		item.setCode(code);
 		service.update(item);
 		
