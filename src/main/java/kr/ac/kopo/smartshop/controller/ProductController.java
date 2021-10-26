@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.ac.kopo.smartshop.model.Product;
 import kr.ac.kopo.smartshop.model.ProductImage;
+import kr.ac.kopo.smartshop.service.ProductImageService;
 import kr.ac.kopo.smartshop.service.ProductService;
 import kr.ac.kopo.smartshop.util.Pager;
 
@@ -26,6 +27,8 @@ import kr.ac.kopo.smartshop.util.Pager;
 public class ProductController {
 	@Autowired
 	ProductService service;
+	@Autowired
+	ProductImageService imageService;
 	
 	private final String PATH = "product/";
 	private final String UPLOAD_PATH = "D:/upload/";
@@ -88,7 +91,17 @@ public class ProductController {
 	
 	@PostMapping("/update/{code}")
 	public String update(@PathVariable int code, Product item, @RequestParam("productImage") List<MultipartFile> productImage) {
+		Product product = service.item(code);
+		
+		for(ProductImage image : product.getImages()) {
+			File file = new File(String.format("%s%s_%s", UPLOAD_PATH, image.getUuid(), image.getFilename()));
+			if(file.exists())
+				file.delete();
+		}
+		imageService.delete(code);
+		
 		List<ProductImage> list = new ArrayList<ProductImage>();
+		
 		try {
 			for (MultipartFile file : productImage) {
 				if (file.isEmpty() || file == null)
@@ -114,7 +127,15 @@ public class ProductController {
 		}
 		
 		item.setImages(list);
+		
+		if(item.getImages() != null && item.getImages().size() > 0) {
+			for(ProductImage image : item.getImages()) {
+				System.out.println(image.getUuid()+"_"+image.getFilename());
+			}
+		}
+		
 		item.setCode(code);
+		
 		service.update(item);
 		
 		return "redirect:../list";

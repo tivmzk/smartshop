@@ -8,4 +8,8 @@
 		INSERT INTO product_image
 		VALUES (NULL, #{filename}, #{uuid}, #{productCode})
 	</insert>
+	<delete id="delete">
+		DELETE FROM product_image
+		WHERE product_code=#{code}
+	</delete>
 </mapper>

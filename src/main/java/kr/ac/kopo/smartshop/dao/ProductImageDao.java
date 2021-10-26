@@ -6,4 +6,6 @@ public interface ProductImageDao {
 
 	void add(ProductImage image);
 
+	void delete(int code);
+
 }
