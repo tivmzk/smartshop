@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
 	public void add(Product item) {
 		dao.add(item);
 		
-		for(ProductImage image : item.getImeges()) {
+		for(ProductImage image : item.getImages()) {
 			image.setProductCode(item.getCode());
 			productImageDao.add(image);
 		}

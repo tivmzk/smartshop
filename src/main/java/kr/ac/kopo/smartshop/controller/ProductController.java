@@ -71,7 +71,7 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		
-		item.setImeges(list);
+		item.setImages(list);
 		
 		service.add(item);
 		

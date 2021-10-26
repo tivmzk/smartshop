@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,16 @@
 		<div>
 			<label for="">설명:</label>
 			<span>${item.info}</span>
+		</div>
+		<div>
+			<ul>
+				<c:if test="${item.images == null || item.images.size() < 1 }">
+					<li>등록 된 제품이미지가 없습니다</li>
+				</c:if>
+				<c:forEach items="${item.images}" var="image">
+					<li><a href="/upload/${image.uuid}_${image.filename}" target="_blank"><img alt="${image.filename}" src="/upload/${image.uuid}_${image.filename}"></a></li>
+				</c:forEach>
+			</ul>
 		</div>
 		<div>
 			<a href="..">돌아가기</a>

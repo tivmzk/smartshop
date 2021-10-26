@@ -11,7 +11,7 @@ public class Product {
 	private int price;
 	private String info;
 	private String barcode;
-	private List<ProductImage> imeges;
+	private List<ProductImage> images;
 	
 	
 	
@@ -23,12 +23,12 @@ public class Product {
 		this.barcode = barcode;
 	}
 
-	public List<ProductImage> getImeges() {
-		return imeges;
+	public List<ProductImage> getImages() {
+		return images;
 	}
 
-	public void setImeges(List<ProductImage> imeges) {
-		this.imeges = imeges;
+	public void setImages(List<ProductImage> images) {
+		this.images = images;
 	}
 
 	public String getInfo() {
