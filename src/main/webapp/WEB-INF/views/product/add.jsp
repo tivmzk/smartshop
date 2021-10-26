@@ -45,7 +45,7 @@
 </script>
 </head>
 <body>
-	<div class="container vh-100 d-flex align-items-center justify-content-center">
+	<div class="container d-flex align-items-center justify-content-center">
 		<form method="post" class="w-50 border p-4 rounded" enctype="multipart/form-data" >
 			<div class="mb-3">
 				<h2>제품 등록</h2>

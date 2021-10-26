@@ -7,36 +7,46 @@
 	<sql id="search">
 		<where>
 			<if test="search == 1">
-				code = #{keyword}
+				p.code = #{keyword}
 			</if>
 			<if test="search == 2">
-				name LIKE CONCAT('%', #{keyword}, '%')
+				p.name LIKE CONCAT('%', #{keyword}, '%')
 			</if>
 			<if test="search == 3">
-				spec LIKE CONCAT('%', #{keyword}, '%')
+				p.spec LIKE CONCAT('%', #{keyword}, '%')
 			</if>
 			<if test="search == 4">
-				category LIKE CONCAT('%', #{keyword}, '%')
+				p.category LIKE CONCAT('%', #{keyword}, '%')
 			</if>
 			<if test="search == 5">
-				manufacture LIKE CONCAT('%', #{keyword}, '%')
+				p.manufacture LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="search == 6">
+				p.barcode=#{barcode}
 			</if>
 		</where>
 	</sql>
 	<select id="list" resultType="Product">
 		SELECT * 
-		FROM PRODUCT 
+		FROM product p 
+		LEFT JOIN product_image i ON p.code=i.product_code 
 		<include refid="search"/>
+		ORDER BY p.code DESC
 		LIMIT #{offset}, #{perPage}
 	</select>
 	<insert id="add">
 		INSERT INTO product
-		VALUES (NULL, #{name}, #{spec}, #{category}, #{manufacture} ,#{price}, #{info})
+		VALUES (NULL, #{name}, #{spec}, #{category}, #{manufacture} ,#{price}, #{info}, #{barcode})
+		
+		<selectKey keyProperty="code" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	<select id="item" resultType="Product">
 		SELECT * 
-		FROM product
-		WHERE code = #{code}
+		FROM product p
+		LEFT JOIN product_image i ON p.code=i.product_code 
+		WHERE p.code = #{code}
 	</select>
 	<update id="update">
 		UPDATE product
@@ -55,7 +65,7 @@
 	</delete>
 	<select id="total" resultType="Integer">
 		SELECT COUNT(*)
-		FROM product
+		FROM product p
 		<include refid="search"/>
 	</select>
 </mapper>

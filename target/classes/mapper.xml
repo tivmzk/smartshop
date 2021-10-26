@@ -18,5 +18,6 @@
 		<mapper resource="mappers/purchase.xml"/>
 		<mapper resource="mappers/sales.xml"/>
 		<mapper resource="mappers/member.xml"/>
+		<mapper resource="mappers/product_image.xml"/>
 	</mappers>
 </configuration>

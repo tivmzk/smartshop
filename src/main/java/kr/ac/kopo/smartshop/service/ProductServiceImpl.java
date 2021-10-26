@@ -4,15 +4,20 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.ac.kopo.smartshop.dao.ProductDao;
+import kr.ac.kopo.smartshop.dao.ProductImageDao;
 import kr.ac.kopo.smartshop.model.Product;
+import kr.ac.kopo.smartshop.model.ProductImage;
 import kr.ac.kopo.smartshop.util.Pager;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductDao dao;
+	@Autowired
+	ProductImageDao productImageDao;
 	
 	@Override
 	public List<Product> list(Pager pager) {
@@ -20,10 +25,16 @@ public class ProductServiceImpl implements ProductService {
 		pager.setTotal(total);
 		return dao.list(pager);
 	}
-
+	
+	@Transactional
 	@Override
 	public void add(Product item) {
 		dao.add(item);
+		
+		for(ProductImage image : item.getImeges()) {
+			image.setProductCode(item.getCode());
+			productImageDao.add(image);
+		}
 	}
 
 	@Override
