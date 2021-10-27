@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import kr.ac.kopo.smartshop.dao.ProductDao;
 import kr.ac.kopo.smartshop.dao.ProductImageDao;
@@ -52,11 +53,19 @@ public class ProductServiceImpl implements ProductService {
 			productImageDao.add(image);
 		}
 	}
-
+	
+	@Transactional
 	@Override
 	public void delete(int code) {
+		Product item = dao.item(code);
+		
+		for(ProductImage image : item.getImages()) {
+			productImageDao.delete(image.getCode());
+		}
+		
 		dao.delete(code);
 	}
+	
 
 	@Override
 	public void dummy() {
