@@ -1,10 +1,7 @@
 package kr.ac.kopo.smartshop.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +18,7 @@ import kr.ac.kopo.smartshop.model.Product;
 import kr.ac.kopo.smartshop.model.ProductImage;
 import kr.ac.kopo.smartshop.service.ProductService;
 import kr.ac.kopo.smartshop.util.Pager;
+import kr.ac.kopo.smartshop.util.Uploader;
 
 @Controller
 @RequestMapping("/product")
@@ -30,7 +28,6 @@ public class ProductController {
 	
 	
 	private final String PATH = "product/";
-	private final String UPLOAD_PATH = "D:/upload/";
 	
 	@RequestMapping({"/", "/list"})
 	public String list(Model model, Pager pager) {
@@ -50,24 +47,10 @@ public class ProductController {
 	public String add(Product item, @RequestParam("productImage") List<MultipartFile> productImage) {
 		List<ProductImage> list = new ArrayList<ProductImage>();
 		try {
-			for (MultipartFile file : productImage) {
-				if (file.isEmpty() || file == null)
-					continue;
-
-				String filename = file.getOriginalFilename();
-				String uuid = UUID.randomUUID().toString();
-
-				file.transferTo(new File(String.format("%s%s_%s", UPLOAD_PATH, uuid, filename)));
-				
-				ProductImage image = new ProductImage();
-				image.setFilename(filename);
-				image.setUuid(uuid);
-				
-				list.add(image);
-			}
+			Uploader<ProductImage> uploader = new Uploader<>();
+			list = uploader.makeList(productImage, ProductImage.class);
+			
 		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,8 +72,22 @@ public class ProductController {
 	}
 	
 	@PostMapping("/update/{code}")
-	public String update(@PathVariable int code, Product item) {
+	public String update(@PathVariable int code, Product item, @RequestParam("productImage") List<MultipartFile> productImage) {
 		item.setCode(code);
+		
+		List<ProductImage> list = new ArrayList<ProductImage>();
+		try {
+			Uploader<ProductImage> uploader = new Uploader<>();
+			list = uploader.makeList(productImage, ProductImage.class);
+			
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		item.setImages(list);
+		
 		service.update(item);
 		
 		return "redirect:../list";

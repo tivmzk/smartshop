@@ -1,6 +1,8 @@
 package kr.ac.kopo.smartshop.model;
 
-public class ProductImage {
+import kr.ac.kopo.smartshop.util.UploadFile;
+
+public class ProductImage implements UploadFile{
 	private int code;
 	private int productCode;
 	private String filename;

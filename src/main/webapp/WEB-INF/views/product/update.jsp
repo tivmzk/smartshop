@@ -44,7 +44,7 @@
 				success:function(result){
 					if(result){
 						alert('삭제 성공')
-						
+						$(`button.delete[data-code=\${code}]`).closest('.list-group-item').remove();
 					}
 					else{
 						alert('삭제 실패');
@@ -61,7 +61,7 @@
 </head>
 <body>
 	<div class="container d-flex align-items-center justify-content-center">
-		<form method="post" class="w-50 border p-4 rounded">
+		<form method="post" class="w-50 border p-4 rounded" enctype="multipart/form-data">
 			<div class="mb-3">
 				<h2>제품 수정</h2>
 			</div>

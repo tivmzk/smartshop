@@ -41,10 +41,16 @@ public class ProductServiceImpl implements ProductService {
 	public Product item(int code) {
 		return dao.item(code);
 	}
-
+	
+	@Transactional
 	@Override
 	public void update(Product item) {
 		dao.update(item);
+		
+		for(ProductImage image : item.getImages()) {
+			image.setProductCode(item.getCode());
+			productImageDao.add(image);
+		}
 	}
 
 	@Override
