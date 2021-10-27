@@ -16,4 +16,13 @@ public class ProductImageDaoImpl implements ProductImageDao {
 		sql.insert("product_image.add", image);
 	}
 
+	@Override
+	public boolean delete(int code) {
+		if(sql.delete("product_image.delete", code) > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

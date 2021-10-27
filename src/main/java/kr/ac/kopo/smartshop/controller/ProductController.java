@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.ac.kopo.smartshop.model.Product;
@@ -26,6 +27,7 @@ import kr.ac.kopo.smartshop.util.Pager;
 public class ProductController {
 	@Autowired
 	ProductService service;
+	
 	
 	private final String PATH = "product/";
 	private final String UPLOAD_PATH = "D:/upload/";
@@ -117,5 +119,12 @@ public class ProductController {
 		Product item = service.item(code);
 		model.addAttribute("item", item);
 		return PATH + "view";
+	}
+	
+	
+	@ResponseBody
+	@GetMapping("/image/delete/{code}")
+	public boolean imageDelete(@PathVariable int code) {
+		return service.deleteImage(code);
 	}
 }

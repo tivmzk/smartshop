@@ -90,4 +90,9 @@ public class ProductServiceImpl implements ProductService {
 		pager.setPerPage(total);
 		return dao.list(pager);
 	}
+
+	@Override
+	public boolean deleteImage(int code) {
+		return productImageDao.delete(code);
+	}
 }

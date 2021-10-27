@@ -22,4 +22,6 @@ public interface ProductService {
 	void init();
 
 	List<Product> list();
+
+	boolean deleteImage(int code);
 }
