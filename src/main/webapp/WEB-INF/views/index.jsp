@@ -60,6 +60,17 @@
 			<li class="list-group-item ">
 				<div class="row align-items-end">
 					<div class="col-10">
+						<h2>제품 관리(AJAX)</h2>
+						<p class="lh-lg my-0">편하고 빠른 제품 관리</p>
+					</div>
+					<div class="col-2 text-center">
+						<a class="btn btn-primary" href="html/product.html">바로가기</a>
+					</div>
+				</div>
+			</li>
+			<li class="list-group-item ">
+				<div class="row align-items-end">
+					<div class="col-10">
 						<h2>거래처 관리</h2>
 						<p class="lh-lg my-0">누구나 할 수 있는 파트너 관리</p>
 					</div>

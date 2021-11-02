@@ -34,6 +34,7 @@ public class RootController {
 			session.setAttribute("member", member);
 			return "redirect:.";
 		}
+		
 		return "redirect:login";
 	}
 	
