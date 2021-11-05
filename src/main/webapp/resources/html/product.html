@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Smart Shop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
-<title></title>
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" defer="defer" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="/resources/face.png" rel="shortcut icon">
+<script src="/js/pager.js"></script>
+<script>
+	const pager_url = '/api';
+	const pager_root = '#pager';
+</script>
+<style>
+.hide{
+	display: none;
+}
+</style>
 </head>
 <body>
 	<div>
@@ -10,7 +26,7 @@
 			<h3>제품 목록</h3>
 		</div>
 		<div>
-			<table border="1">
+			<table id="pager" class="table table-striped">
 				<thead>
 					<tr>
 						<th>제품번호</th>
@@ -23,17 +39,86 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr class="empty_msg">
 						<td colspan="7">등록된 정보가 없습니다</td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
-						<td><button>추가</button></td>
+						<td colspan="7" >
+							<div class="pagination justify-content-center">
+								<div class="page-item">
+									<span class="page-link page-first" data-page="1">&lt;&lt;</span>
+								</div>
+								<div class="page-item">
+									<span class="page-link page-prev">&lt;</span>
+								</div>
+								<div class="page-item">
+									<span class="page-link page-next">&gt;</span>
+								</div>
+								<div class="page-item">
+									<span class="page-link page-end">&gt;&gt;</span>
+								</div>
+							</div>
+						</td>
 					</tr>
 				</tfoot>
 			</table>
 		</div>
+		<div>
+			<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModel">등록</button>
+			<a href=".." class="btn btn-secondary">뒤로가기</a>
+		</div>
 	</div>
+	
+	<!-- Modal 시작-->
+	<div class="modal fade" id="addModel" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="addModalLabel">등록</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<h2>제품 등록</h2>
+					</div>
+					<div class="form-floating mb-5">
+						<input class="form-control" id="name" type="text" name="name"
+							required="required" autofocus="autofocus" placeholder="name">
+						<label for="name">제품명</label>
+					</div>
+					<div class="form-floating my-5">
+						<input class="form-control" id="spec" type="text" name="spec"
+							required="required" placeholder="spec"> <label for="spec">규격</label>
+					</div>
+					<div class="form-floating my-5">
+						<input class="form-control" id="category" type="text"
+							name="category" required="required" placeholder="category">
+						<label for="category">카테고리</label>
+					</div>
+					<div class="form-floating my-5">
+						<input class="form-control" id="manufacture" type="text"
+							name="manufacture" required="required" placeholder="manufacture">
+						<label for="manufacture">제조사</label>
+					</div>
+					<div class="form-floating my-5">
+						<input class="form-control" id="price" type="number" name="price"
+							required="required" placeholder="0"> <label for="price">가격</label>
+					</div>
+					<div class="form-floating my-5">
+						<input class="form-control" id="barcode" type="text"
+							name="barcode" required="required" placeholder="barcode">
+						<label for="barcode">바코드</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-primary" id="add-btn">등록</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal 끝-->
 </body>
 </html>

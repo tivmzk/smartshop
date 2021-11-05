@@ -1,6 +1,7 @@
 package kr.ac.kopo.smartshop.controller;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +17,7 @@ import kr.ac.kopo.smartshop.dao.ProductImageDao;
 import kr.ac.kopo.smartshop.model.Product;
 import kr.ac.kopo.smartshop.model.ProductImage;
 import kr.ac.kopo.smartshop.service.ProductService;
+import kr.ac.kopo.smartshop.util.Pager;
 
 @RequestMapping("/api")
 @RestController // Controller + ResponseBody
@@ -26,8 +28,11 @@ public class ApiController {
 	ProductImageDao imageDao;
 	
 	@GetMapping
-	public List<Product> list(){
-		return service.list();
+	public Map<String, Object> list(Pager pager){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("list", service.list(pager));
+		map.put("pager", pager);
+		return map;
 	}
 	
 	@GetMapping("/{code}")
@@ -37,7 +42,7 @@ public class ApiController {
 	
 	
 	@PostMapping
-	public void add(@RequestBody Product item) {
+	public Map<String, Object> add(@RequestBody Product item, Pager pager) {
 		service.add(item);
 		
 		if(item.getImages() != null) {
@@ -46,15 +51,21 @@ public class ApiController {
 				imageDao.add(image);
 			}
 		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("item", item);
+		map.put("pager", pager);
+		return map;
 	}
 	
 	@PutMapping
-	public void update(@RequestBody Product item) {
+	public Product update(@RequestBody Product item) {
 		service.update(item);
+		return item;
 	}
 	
 	@DeleteMapping("/{code}")
-	public void delete(@PathVariable int code) {
+	public boolean delete(@PathVariable int code) {
 		service.delete(code);
+		return true;
 	}
 }
