@@ -72,7 +72,8 @@
 		category = #{category},
 		manufacture = #{manufacture},
 		price = #{price},
-		info = #{info}
+		info = #{info},
+		barcode = #{barcode}
 		WHERE code = #{code}
 	</update>
 	<delete id="delete">

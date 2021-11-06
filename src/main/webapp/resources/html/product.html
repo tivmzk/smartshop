@@ -35,17 +35,18 @@
 						<th>카테고리</th>
 						<th>제조사</th>
 						<th>가격</th>
+						<th>바코드</th>
 						<th>관리</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="empty_msg">
-						<td colspan="7">등록된 정보가 없습니다</td>
+						<td colspan="8">등록된 정보가 없습니다</td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="7" >
+						<td colspan="8" >
 							<div class="pagination justify-content-center">
 								<div class="page-item">
 									<span class="page-link page-first" data-page="1">&lt;&lt;</span>
@@ -66,13 +67,68 @@
 			</table>
 		</div>
 		<div>
-			<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModel">등록</button>
+			<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">등록</button>
 			<a href=".." class="btn btn-secondary">뒤로가기</a>
 		</div>
 	</div>
 	
 	<!-- Modal 시작-->
-	<div class="modal fade" id="addModel" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+	<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="updateModalLabel">수정</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<h2>제품 수정</h2>
+					</div>
+					<div class="form-floating mb-5">
+						<input class="form-control code" type="text"
+							required="required" autofocus="autofocus" placeholder="code" readonly>
+						<label for="name">코드</label>
+					</div>
+					<div class="form-floating mb-5">
+						<input class="form-control name" type="text"
+							required="required" autofocus="autofocus" placeholder="name">
+						<label for="name">제품명</label>
+					</div>
+					<div class="form-floating my-5">
+						<input class="form-control spec" type="text"
+							required="required" placeholder="spec"> <label for="spec">규격</label>
+					</div>
+					<div class="form-floating my-5">
+						<input class="form-control category"   type="text"
+							required="required" placeholder="category">
+						<label for="category">카테고리</label>
+					</div>
+					<div class="form-floating my-5">
+						<input class="form-control manufacture" type="text"
+							required="required" placeholder="manufacture">
+						<label for="manufacture">제조사</label>
+					</div>
+					<div class="form-floating my-5">
+						<input class="form-control price"   type="number"
+							required="required" placeholder="0"> <label for="price">가격</label>
+					</div>
+					<div class="form-floating my-5">
+						<input class="form-control barcode" type="text"
+							required="required" placeholder="barcode">
+						<label for="barcode">바코드</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-primary" id="update-btn">확인</button>
+				</div>
+			</div>
+	  </div>
+	</div>
+	<!-- Modal 끝-->
+	
+	<!-- Modal 시작-->
+	<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -84,31 +140,31 @@
 						<h2>제품 등록</h2>
 					</div>
 					<div class="form-floating mb-5">
-						<input class="form-control" id="name" type="text" name="name"
+						<input class="form-control name" type="text"
 							required="required" autofocus="autofocus" placeholder="name">
 						<label for="name">제품명</label>
 					</div>
 					<div class="form-floating my-5">
-						<input class="form-control" id="spec" type="text" name="spec"
+						<input class="form-control spec" type="text"
 							required="required" placeholder="spec"> <label for="spec">규격</label>
 					</div>
 					<div class="form-floating my-5">
-						<input class="form-control" id="category" type="text"
-							name="category" required="required" placeholder="category">
+						<input class="form-control category" type="text"
+							required="required" placeholder="category">
 						<label for="category">카테고리</label>
 					</div>
 					<div class="form-floating my-5">
-						<input class="form-control" id="manufacture" type="text"
-							name="manufacture" required="required" placeholder="manufacture">
+						<input class="form-control manufacture" type="text"
+							required="required" placeholder="manufacture">
 						<label for="manufacture">제조사</label>
 					</div>
 					<div class="form-floating my-5">
-						<input class="form-control" id="price" type="number" name="price"
+						<input class="form-control price" type="number"
 							required="required" placeholder="0"> <label for="price">가격</label>
 					</div>
 					<div class="form-floating my-5">
-						<input class="form-control" id="barcode" type="text"
-							name="barcode" required="required" placeholder="barcode">
+						<input class="form-control barcode" type="text"
+							required="required" placeholder="barcode">
 						<label for="barcode">바코드</label>
 					</div>
 				</div>

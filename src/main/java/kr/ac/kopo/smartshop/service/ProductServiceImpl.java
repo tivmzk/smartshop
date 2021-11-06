@@ -50,6 +50,8 @@ public class ProductServiceImpl implements ProductService {
 	public void update(Product item) {
 		dao.update(item);
 		
+		if(item.getImages() == null) return;
+		
 		for(ProductImage image : item.getImages()) {
 			image.setProductCode(item.getCode());
 			productImageDao.add(image);
