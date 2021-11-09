@@ -22,8 +22,27 @@
 </head>
 <body>
 	<div>
-		<div>
-			<h3>제품 목록</h3>
+		<div class="d-flex justify-content-between">
+			<h3>제품 목록 (<span id="total">0</span>)</h3>
+			<div class="row g-3" id="search">
+				<div class="col-auto">
+					<select class="form-select">
+						<option value="0">검색항목</option>
+						<option value="1">제품번호</option>
+						<option value="2">제품명</option>
+						<option value="3">규격</option>
+						<option value="4">카테고리</option>
+						<option value="5">제조사</option>
+					</select>
+				</div>
+				<div class="col-auto">
+					<input class="form-control" type="text"
+						placeholder="search...">
+				</div>
+				<div class="col-auto">
+					<button class="btn btn-outline-success submit">검색</button>
+				</div>
+			</div>
 		</div>
 		<div>
 			<table id="pager" class="table table-striped">
@@ -41,7 +60,7 @@
 				</thead>
 				<tbody>
 					<tr class="empty_msg">
-						<td colspan="8">등록된 정보가 없습니다</td>
+						<td colspan="8" class="text-center">등록된 정보가 없습니다</td>
 					</tr>
 				</tbody>
 				<tfoot>

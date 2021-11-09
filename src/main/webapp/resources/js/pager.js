@@ -1,7 +1,10 @@
 const state = {
 	page: 1,
+	keyword: '',
+	search: 0,
+	total: 0
 };
-
+/*페이지의 테이블을 채우고 페이지네이션을 초기화하는 함수*/
 function movePage(page) {
 	state.page = page;
 	$.ajax(pager_url, {
@@ -11,37 +14,40 @@ function movePage(page) {
 		data: state,
 		success: function(result) {
 			const { list, pager } = result;
+			state.total = pager.total;
+			$('#total').text(state.total);
+			$(`${pager_root} tbody tr.deletable`).remove();
 
 			if (list && list.length > 0) {
-				const tbody = $(`${pager_root} > tbody`);
-
-				tbody.empty();
-
+				$(`.empty_msg`).addClass('hide');
 				for (let i = 0; i < list.length; i++) {
 					addRow(list[i], false);
 				}
-				
-				$(`${pager_root} .page-prev`).data("page", pager.prev);
-				$(`${pager_root} .page-next`).data("page", pager.next);
-				$(`${pager_root} .page-end`).data("page", pager.end);
+			}
+			else {
+				$(`.empty_msg`).removeClass('hide');
+			}
 
-				$(`${pager_root} .page-list`).remove();
+			$(`${pager_root} .page-prev`).data("page", pager.prev);
+			$(`${pager_root} .page-next`).data("page", pager.next);
+			$(`${pager_root} .page-end`).data("page", pager.end);
 
-				const pageList = pager.list;
+			$(`${pager_root} .page-list`).remove();
 
-				for (let i = 0; i < pageList.length; i++) {
-					const page_item = $("<div>").addClass("page-item page-list");
+			const pageList = pager.list;
 
-					if (pager.page == pageList[i]) {
-						page_item.addClass("active");
-					}
-					const page_link = $("<span>").addClass("page-link");
-					page_link.text(pageList[i]);
-					page_link.attr("data-page", pageList[i]);
+			for (let i = 0; i < pageList.length; i++) {
+				const page_item = $("<div>").addClass("page-item page-list");
 
-					page_item.append(page_link);
-					$(`${pager_root} .page-next`).parent().before(page_item);
+				if (pager.page == pageList[i]) {
+					page_item.addClass("active");
 				}
+				const page_link = $("<span>").addClass("page-link");
+				page_link.text(pageList[i]);
+				page_link.attr("data-page", pageList[i]);
+
+				page_item.append(page_link);
+				$(`${pager_root} .page-next`).parent().before(page_item);
 			}
 		},
 		error: function(xhr) {
@@ -50,12 +56,13 @@ function movePage(page) {
 	});
 }
 
+/*테이블에 행을 추가하는 함수*/
 function addRow(item, pre) {
 	let html = "";
 	const tbody = $(`${pager_root} > tbody`);
 	const { code, name, spec, manufacture, category, price, barcode } = item;
 
-	html += `<tr data-code="${code}">`;
+	html += `<tr class="deletable" data-code="${code}">`;
 	html += `<td class="code">${code}</td>`;
 	html += `<td class="name">${name}</td>`;
 	html += `<td class="spec">${spec}</td>`;
@@ -72,6 +79,23 @@ function addRow(item, pre) {
 	else{
 		tbody.append(html);
 	}
+}
+
+/*검색 함수*/
+function search() {
+	const search = $('#search select').val();
+	const keyword = $('#search input').val();
+
+	if (keyword == '' && search != 0) {
+		alert('검색어를 입력하세요');
+		$('#search input').focus();
+		return;
+	}
+
+	state.keyword = keyword;
+	state.search = search;
+
+	movePage(1);
 }
 
 $(function() {
@@ -103,6 +127,8 @@ $(function() {
 				if ($(`${pager_root} tbody`).children("tr").length > pager.perPage) {
 					$(`${pager_root} tbody tr:last-child`).remove();
 				}
+				
+				$('#total').text(++state.total);
 			},
 			error: function(xhr) {
 				alert(`오류 발생 : ${xhr.statusText}`);
@@ -122,9 +148,7 @@ $(function() {
 			success: function(result) {
 				if (result == code) {
 					$(`tr[data-code="${code}"]`).remove();
-					const currPage = $('.pagination .page-list.active .page-link').data('page');
-					console.log(currPage);
-					movePage(currPage);
+					$('#total').text(--state.total);
 				}
 			},
 			error: function(xhr) {
@@ -152,7 +176,7 @@ $(function() {
 		
 		modal.modal('show');
 	});
-	
+	/*수정 모달에 입력한 값을 서버에 보내서 수정함*/
 	$('#updateModal #update-btn').click(function(){
 		const item = {
 			code: $("#updateModal .code").val(),
@@ -183,6 +207,25 @@ $(function() {
 				console.log(xhr.statusText);
 			}
 		});
+	});
+	
+	/*검색 버튼에 클릭 이벤트 추가*/
+	$('#search .submit').click(function(e){
+		e.preventDefault();
+		search();
+	});
+	/*검색시 엔터로도 검색 가능*/
+	$('#search input').keypress(function(e){
+		if (e.keyCode == 13) {
+			search();
+		}
+	});
+	/*리스트를 초기화 할 경우 검색성 삭제*/
+	$('#search select').on('change', function(){
+		if($(this).val() == 0){
+			$('#search input').val(null);
+			search();
+		}
 	});
 
 	movePage(1);

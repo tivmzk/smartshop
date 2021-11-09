@@ -7,7 +7,7 @@
 	<sql id="search">
 		<where>
 			<if test="search == 1">
-				p.code = #{keyword}
+				p.code LIKE CONCAT('%', #{keyword}, '%')
 			</if>
 			<if test="search == 2">
 				p.name LIKE CONCAT('%', #{keyword}, '%')
