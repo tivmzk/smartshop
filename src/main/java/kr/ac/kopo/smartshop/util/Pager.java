@@ -11,7 +11,7 @@ public class Pager {
 	/**
 	 * @value 한 페이지가 보여줄 개수
 	 */
-	private int perPage = 10;
+	private int perPage = 5;
 	/**
 	 * @value DB에 전부 몇개 있나
 	 */
@@ -28,7 +28,28 @@ public class Pager {
 	 * @value 검색하는 내용
 	 */
 	private String keyword;
+	/**
+	 * @value 정렬을 위한 속성의 이름
+	 */
+	private String order;
+	/**
+	 * @value 현재 정렬 상태
+	 */
+	private int orderMode;
 	
+	
+	public String getOrder() {
+		return order;
+	}
+	public void setOrder(String order) {
+		this.order = order;
+	}
+	public int getOrderMode() {
+		return orderMode;
+	}
+	public void setOrderMode(int orderMode) {
+		this.orderMode = orderMode;
+	}
 	public int getSearch() {
 		return search;
 	}

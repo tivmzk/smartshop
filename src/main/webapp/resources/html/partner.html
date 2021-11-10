@@ -13,15 +13,16 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="/css/common.css">
 <script>
-	const pager_url = '/api';
+	const pager_url = '/api/partner';
 	const pager_root = '#pager';
 	const pager_key = 'code';
 </script>
+
 </head>
 <body>
 	<div>
 		<div>
-			<h3>제품 목록 (<span id="total">0</span>)</h3>
+			<h3>거래처 목록 (<span id="total">0</span>)</h3>
 		</div>
 		<div id="search" class="d-flex justify-content-between">
 			<div class="col-1">
@@ -37,11 +38,10 @@
 					<div class="col-auto">
 						<select class="form-select search">
 							<option value="0">검색항목</option>
-							<option value="1">제품번호</option>
-							<option value="2">제품명</option>
-							<option value="3">규격</option>
-							<option value="4">카테고리</option>
-							<option value="5">제조사</option>
+							<option value="1">거래처번호</option>
+							<option value="2">거래처명</option>
+							<option value="3">전화번호</option>
+							<option value="4">주소</option>
 						</select>
 					</div>
 					<div class="col-auto">
@@ -57,24 +57,21 @@
 			<table id="pager" class="table table-striped">
 				<thead>
 					<tr>
-						<th class="order selectable" data-order="code" data-name="code">제품번호</th>
-						<th class="order selectable" data-order="name" data-name="name">제품명</th>
-						<th class="order selectable" data-order="spec" data-name="spec">규격</th>
-						<th class="order selectable" data-order="category" data-name="category">카테고리</th>
-						<th class="order selectable" data-order="manufacture" data-name="manufacture">제조사</th>
-						<th class="order selectable" data-order="price" data-name="price">가격</th>
-						<th class="order selectable" data-order="barcode" data-name="barcode">바코드</th>
+						<th class="order selectable" data-order="code" data-name="code">코드</th>
+						<th class="order selectable" data-order="name" data-name="name">거래처명</th>
+						<th class="order selectable" data-order="tel" data-name="tel">전화번호</th>
+						<th class="order selectable" data-order="address" data-name="address">주소</th>
 						<th>관리</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="empty_msg">
-						<td colspan="8" class="text-center">등록된 정보가 없습니다</td>
+						<td colspan="5" class="text-center">거래처가 없습니다</td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="8" >
+						<td colspan="5">
 							<div class="pagination justify-content-center">
 								<div class="page-item">
 									<span class="page-link page-first selectable" data-page="1">&lt;&lt;</span>
@@ -110,40 +107,26 @@
 	      </div>
 				<div class="modal-body">
 					<div class="mb-3">
-						<h2>제품 수정</h2>
+						<h2>수정</h2>
 					</div>
 					<div class="form-floating mb-5">
 						<input class="form-control code" type="text"
 							required="required" autofocus="autofocus" placeholder="code" readonly>
-						<label for="name">코드</label>
+						<label for="name">거래처번호</label>
 					</div>
 					<div class="form-floating mb-5">
 						<input class="form-control name" type="text"
 							required="required" autofocus="autofocus" placeholder="name">
-						<label for="name">제품명</label>
+						<label for="name">거래처명</label>
 					</div>
 					<div class="form-floating my-5">
-						<input class="form-control spec" type="text"
-							required="required" placeholder="spec"> <label for="spec">규격</label>
+						<input class="form-control tel" type="text"
+							required="required" placeholder="spec"> <label for="tel">전화번호</label>
 					</div>
 					<div class="form-floating my-5">
-						<input class="form-control category"   type="text"
+						<input class="form-control address"   type="text"
 							required="required" placeholder="category">
-						<label for="category">카테고리</label>
-					</div>
-					<div class="form-floating my-5">
-						<input class="form-control manufacture" type="text"
-							required="required" placeholder="manufacture">
-						<label for="manufacture">제조사</label>
-					</div>
-					<div class="form-floating my-5">
-						<input class="form-control price"   type="number"
-							required="required" placeholder="0"> <label for="price">가격</label>
-					</div>
-					<div class="form-floating my-5">
-						<input class="form-control barcode" type="text"
-							required="required" placeholder="barcode">
-						<label for="barcode">바코드</label>
+						<label for="address">주소</label>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -165,35 +148,21 @@
 	      </div>
 				<div class="modal-body">
 					<div class="mb-3">
-						<h2>제품 등록</h2>
+						<h2>등록</h2>
 					</div>
 					<div class="form-floating mb-5">
 						<input class="form-control name" type="text"
 							required="required" autofocus="autofocus" placeholder="name">
-						<label for="name">제품명</label>
+						<label for="name">거래처명</label>
 					</div>
 					<div class="form-floating my-5">
-						<input class="form-control spec" type="text"
-							required="required" placeholder="spec"> <label for="spec">규격</label>
+						<input class="form-control tel" type="text"
+							required="required" placeholder="tel"> <label for="tel">전화번호</label>
 					</div>
 					<div class="form-floating my-5">
-						<input class="form-control category" type="text"
-							required="required" placeholder="category">
-						<label for="category">카테고리</label>
-					</div>
-					<div class="form-floating my-5">
-						<input class="form-control manufacture" type="text"
-							required="required" placeholder="manufacture">
-						<label for="manufacture">제조사</label>
-					</div>
-					<div class="form-floating my-5">
-						<input class="form-control price" type="number"
-							required="required" placeholder="0"> <label for="price">가격</label>
-					</div>
-					<div class="form-floating my-5">
-						<input class="form-control barcode" type="text"
-							required="required" placeholder="barcode">
-						<label for="barcode">바코드</label>
+						<input class="form-control address" type="text"
+							required="required" placeholder="address">
+						<label for="address">주소</label>
 					</div>
 				</div>
 				<div class="modal-footer">

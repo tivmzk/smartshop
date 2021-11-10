@@ -26,12 +26,23 @@
 			</if>
 		</where>
 	</sql>
+	
 	<select id="list" resultMap="ProductMap" >
 		SELECT p.*, i.code AS image_code, i.filename AS filename, i.uuid AS uuid, i.product_code AS product_code
 		FROM product p 
 		LEFT JOIN product_image i ON p.code=i.product_code 
 		<include refid="search"/>
-		ORDER BY p.code DESC
+		<choose>
+			<when test="orderMode == 1">
+				ORDER BY ${order} ASC
+			</when>
+			<when test="orderMode == 2">
+				ORDER BY ${order} DESC
+			</when>
+			<otherwise>
+				ORDER BY code DESC
+			</otherwise>
+		</choose>
 		LIMIT #{offset}, #{perPage}
 	</select>
 	<insert id="add">
