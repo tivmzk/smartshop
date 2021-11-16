@@ -1,3 +1,10 @@
+/*
+	이 js를 사용하기 위해 해야하는 일
+	pager_url (ajax를 하는 경로) 변수 만들기
+	page_root (최상위 태그) 변수 만들기
+	page_key (modal 객체에서 DB의 기본키에 해당하는 변수 이름) 설정
+*/
+
 const state = {
 	page: 1,
 	keyword: '',
@@ -88,8 +95,8 @@ function addRow(item, pre) {
 	
 	/*const { code, name, spec, manufacture, category, price, barcode } = item;*/
 
-	html += `<tr class="deletable" data-code="${pager_key}">`;
-	
+	html += `<tr class="deletable" data-code="${item[pager_key]}">`;
+	html += `<td><input type="checkbox" class="form-check-input" value="${item[pager_key]}"/></td>`;
 	for(let i=0; i<header.length; i++){
 		html += `<td class="${header[i]}">${item[header[i]] == null ? 'N/A' : item[header[i]]}</td>`;
 	}
@@ -146,10 +153,20 @@ $(function() {
 			price: $("#addModal .price").val(),
 			barcode: $("#addModal .barcode").val(),
 		};*/
+		/*
+			header에 저장해둔 컬럼명(model 객체의 변수명)을 이용해 반복문을 사용해
+			DB에 전달한 오브젝트 변수를 만든다
+		*/
 		const item = new Object();
+		/*
+			보통 반복문을 사용한 경우
 		for(let i=0; i<header.length; i++){
 			item[header[i]] = $(`#addModal .${header[i]}`).val();
 		}
+		*/
+		
+		/*forEach문을 사용한 경우*/
+		header.forEach(value => item[value]=$(`#addModal .${value}`).val());
 
 		$.ajax(pager_url, {
 			method: "POST",
@@ -160,7 +177,7 @@ $(function() {
 				const { item, pager } = result;
 				addRow(item, true);
 				$("#addModal input").val(null);
-				if ($(`${pager_root} tbody`).children("tr").length > pager.perPage) {
+				if ($(`${pager_root} tbody`).children("tr.deletable").length > pager.perPage) {
 					$(`${pager_root} tbody tr:last-child`).remove();
 				}
 				
@@ -203,18 +220,27 @@ $(function() {
 			price:$(this).parent().siblings('.price').text(),
 			barcode:$(this).parent().siblings('.barcode').text()
 		};*/
-		const item = new Object();
+		/*const item = new Object();
 		for(let i=0; i<header.length; i++){
 			item[header[i]] = $(this).parent().siblings(`.${header[i]}`).text();
 		}
-		
 		const modal = $('#updateModal');
 		
 		for(const key in item){
 			modal.find(`.${key}`).val(item[key]);
 		}
 		
-		modal.modal('show');
+		modal.modal('show');*/
+		/*
+			테이블에 있는 text들을 updateModal에 채워주는 처리
+			header에 있는 model 객체의 변수명과 등록한 class를 이용해
+			자동화 했다
+		*/
+		header.forEach(value => {
+			const text = $(this).parent().siblings(`.${value}`).text();
+			$(`#updateModal .${value}`).val(text);
+		});
+		$('#updateModal').modal('show');
 	});
 	/*수정 모달에 입력한 값을 서버에 보내서 수정함*/
 	$('#updateModal #update-btn').click(function(){
@@ -230,9 +256,12 @@ $(function() {
 		
 		const item = new Object();
 		
-		for(let i=0; i<header.length; i++){
+		/*for(let i=0; i<header.length; i++){
 			item[header[i]] = $(`#updateModal .${header[i]}`).val();
-		}
+		}*/
+		
+		header.forEach(value => item[value]=$(`#updateModal .${value}`).val());
+
 		
 		$.ajax(pager_url, {
 			method: 'PUT',

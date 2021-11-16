@@ -33,7 +33,7 @@
 					<option value="30">30개씩</option>
 				</select>
 			</div>
-			<div class="col-3">
+			<div>
 				<div class="row g-3">
 					<div class="col-auto">
 						<select class="form-select search">
@@ -57,6 +57,7 @@
 			<table id="pager" class="table table-striped">
 				<thead>
 					<tr>
+						<th><input type="checkbox" class="form-check-input"/></th>
 						<th class="order selectable" data-order="code" data-name="code">코드</th>
 						<th class="order selectable" data-order="name" data-name="name">거래처명</th>
 						<th class="order selectable" data-order="tel" data-name="tel">전화번호</th>
@@ -94,6 +95,7 @@
 		<div>
 			<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">등록</button>
 			<a href=".." class="btn btn-secondary">뒤로가기</a>
+			<button class="btn btn-danger" id="delete_list">선택삭제</button>
 		</div>
 	</div>
 	
